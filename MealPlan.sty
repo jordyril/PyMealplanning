@@ -1,0 +1,76 @@
+\ProvidesPackage{mealplan}[2021/03/13 MealPlan Package]
+
+% ################################################################################
+% GENERAL
+% ################################################################################
+\usepackage[left=2cm, right=2cm]{geometry}
+\usepackage{dashrule} %Helps creating horizontal (dashed) lines
+\usepackage{titling} % Allows access to \thetitle commands
+
+\usepackage{tabularx}
+
+\usepackage{multicol}
+
+
+
+\usepackage{xcolor}
+\definecolor{titlecolor}{RGB}{254, 254, 254}
+\definecolor{titlebg}{RGB}{50, 150, 50}
+\definecolor{daycolor}{RGB}{0,60,0}
+\definecolor{mealcolor}{RGB}{0,40,0}
+
+\setlength\parindent{0pt}
+\thispagestyle{empty} %removes headers/footers
+
+\usepackage{pdfpages}
+\usepackage[color=black]{attachfile2}
+% ################################################################################
+% TITLES
+% ################################################################################
+% MAIN TITLE
+\title{Meal plan}
+\newcommand{\firstdate}{14/03}
+\newcommand{\lastdate}{19/03}
+
+\newcommand{\thedate}{\firstdate\ $-$ \lastdate}
+
+\newcommand{\mytitle}[1]{
+    \colorbox{titlebg}{%
+        \parbox{\dimexpr\textwidth-3\fboxsep}{\centering \color{titlecolor}
+        \fontsize{24}{28}\bfseries\thetitle: \thedate
+        }%
+    }%
+    \\[0.5cm]
+}
+
+
+% DAY TITLE
+\makeatletter
+\newcommand\daytitle[1]{%
+    \quitvmode
+    \hb@xt@0.99\linewidth{%
+        \dimen@=1ex
+        \advance\dimen@-2pt
+        {\color{daycolor} \leaders\hrule \@height1ex \@depth-\dimen@\hfill}
+        \enskip
+        \textbf{\color{daycolor} #1}%
+        \enskip
+        {\color{daycolor} \leaders\hrule \@height1ex \@depth-\dimen@\hfill}
+    }%
+}
+\makeatother
+
+% ################################################################################
+% MYDAY
+% ################################################################################
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\newcommand{\myday}[4]{
+    {\daytitle{#1}}
+
+    \begin{tabularx}{\textwidth}{YYY}
+        {\color{mealcolor} \underline{Breakfast}} & {\color{mealcolor} \underline{Lunch}} & {\color{mealcolor} \underline{Dinner}} \\[0.1cm]
+        #2& #3 & #4
+    \end{tabularx}
+    {\color{daycolor} \hdashrule{\linewidth}{0.5pt}{3.5pt} \vspace{1cm}} \\
+}
+

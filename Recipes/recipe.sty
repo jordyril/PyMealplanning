@@ -1,0 +1,189 @@
+% \NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{recipe}[2021/03/13 Recipe Package]
+
+% ################################################################################
+% 
+% ################################################################################
+\usepackage[left=1cm, right=1cm]{geometry}
+\usepackage{titling}
+
+\usepackage{color}
+\definecolor{titlecolor}{RGB}{252, 252, 252}
+\definecolor{titlebg}{RGB}{120, 250, 120}
+
+\usepackage{graphicx}
+
+\usepackage{multicol}
+\usepackage{tabularx}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+
+\usepackage{etoolbox}
+\usepackage{expl3}
+\usepackage{xinttools}
+\usepackage{xint}
+
+\ExplSyntaxOn
+\NewDocumentCommand{\newList}{m}{
+    \seq_new:c { l_kees_list_#1_seq }
+}
+\NewDocumentCommand{\addToList}{mm}{
+    \seq_put_right:cn { l_kees_list_#1_seq } { #2 }
+}
+\NewDocumentCommand{\getFromList}{mm}{
+    \seq_item:cn { l_kees_list_#1_seq } { #2 }
+}
+
+
+\ExplSyntaxOff
+
+\usepackage{tcolorbox}
+\newtcolorbox{mybox}[3][]
+{
+  colframe = #2!25,
+  colback  = white,
+  coltitle = #2!20!black,  
+  title    = {#3},
+  #1,
+}
+
+% ################################################################################
+% TITLE + Picture
+% ################################################################################
+\newcommand\setphoto{\newcommand\zzphoto{example-image}}
+\setphoto
+\newcommand\photo[1]{\renewcommand{\zzphoto}{Graphics/#1}}
+
+\renewcommand{\maketitle}{
+    \colorbox{titlebg}{%
+        \parbox{\dimexpr\textwidth-3\fboxsep}{\centering \color{titlecolor}
+        \fontsize{24.88}{28}\bfseries\thetitle
+        }%
+    }%
+    \\[0.5cm]
+    \begin{center}
+        \includegraphics[keepaspectratio,width=0.9\linewidth,height=8cm]{\zzphoto}
+    \end{center}
+}
+
+\pagestyle{empty}
+
+% ################################################################################
+% NUTRIENT INFORMATION
+% ################################################################################
+\newcommand\defaultnutritienvalue{.}
+
+\newcommand\setcalories{\newcommand\zzcalories{\defaultnutritienvalue}}
+\setcalories
+\newcommand\calories[1]{\renewcommand{\zzcalories}{#1}}
+
+\newcommand\setprotein{\newcommand\zzprotein{\defaultnutritienvalue}}
+\setprotein
+\newcommand\protein[1]{\renewcommand{\zzprotein}{#1}}
+
+\newcommand\setcarbs{\newcommand\zzcarbs{\defaultnutritienvalue}}
+\setcarbs
+\newcommand\carbs[1]{\renewcommand{\zzcarbs}{#1}}
+
+\newcommand\setfat{\newcommand\zzfat{\defaultnutritienvalue}}
+\setfat
+\newcommand\fat[1]{\renewcommand{\zzfat}{#1}}
+
+
+\newcommand\nutricientstabular{
+    {\Large
+    \begin{tabularx}{\linewidth}{lRl}
+        Calories & \zzcalories & kcal \\[0.3em]
+        Protein & \zzprotein & g\\[0.3em]
+        Carbs & \zzcarbs & g\\[0.3em]
+        Fat & \zzfat & g
+    \end{tabularx}
+    }
+}
+
+\newcommand{\boxnutrition}{
+    \begin{mybox}{yellow}{\textbf{\Large Nutrient values}}
+        \nutricientstabular
+    \end{mybox}
+}
+
+% ################################################################################
+% INGREDIENTS
+% ################################################################################
+\newcommand\setserving{\newcommand\zzserving{1}}
+\setserving
+\newcommand\serving[1]{\renewcommand{\zzserving}{#1}}
+
+\newList{ingredientnames}
+\newList{ingredientquants}
+\newList{ingredientunits}
+
+\newcounter{ingredientscounter}
+
+\newcommand\ingredient[3]{
+    \addToList{ingredientnames}{#1}
+    \addToList{ingredientquants}{#2}
+    \addToList{ingredientunits}{#3}
+    \addtocounter{ingredientscounter}{1}
+}
+
+\newcommand{\ingredientstabular}{
+    {\Large
+    \begin{tabularx}{\linewidth}{lRl}        
+            \xintFor* ##1 in {\xintSeq{1}{\theingredientscounter}} \do{\getFromList{ingredientnames}{##1} & \getFromList{ingredientquants}{##1} & \getFromList{ingredientunits}{##1} \\}
+    \end{tabularx}
+    }
+}
+
+\newcommand{\boxingredients}{
+    \begin{mybox}{red}{\textbf{\Large Ingredients: \zzserving}}
+        \ingredientstabular
+    \end{mybox}
+}
+
+% ################################################################################
+% INSTRUCTIONS
+% ################################################################################
+\newList{instructions}
+
+\newcounter{instructionscounter}
+
+\newcommand\step[1]{
+    \addToList{instructions}{#1}
+    \addtocounter{instructionscounter}{1}
+}
+
+\newcommand{\boxinstructions}{
+    \begin{mybox}{orange}{\textbf{\Large Instructions}}
+        {\Large
+        \begin{enumerate}
+            \xintFor* ##1 in {\xintSeq{1}{\theinstructionscounter}}\do{\item \getFromList{instructions}{##1}}
+        \end{enumerate}
+        }
+    \end{mybox}
+}
+
+
+
+
+% ################################################################################
+% COMBINE
+% ################################################################################
+\newcommand{\printinfo}{
+    \begin{multicols}{2}
+        \boxingredients
+        \columnbreak
+        \boxnutrition
+    \end{multicols}
+    \boxinstructions
+}
+
+
+\newcommand{\createrecipe}{
+    \maketitle
+    \printinfo
+}
+
+
+
