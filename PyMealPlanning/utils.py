@@ -87,6 +87,12 @@ class PyLaTeXRecipeUtil(object):
         for step in self.recipe.instructions:
             self.doc.append(Command("step", step))
 
+        if self.recipe.source:
+            self.doc.append(Command("source", self.recipe.source))
+
+        if self.recipe.score:
+            self.doc.append(Command("score", self.recipe.score))
+
         self._add_tex_title("Doc")
         self.doc.append(Command("createrecipe"))
 

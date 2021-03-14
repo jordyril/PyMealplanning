@@ -1,7 +1,8 @@
-from typing import Optional
-from PyMealPlanning.UnitMetrics import Volume, UnitMetric
-from PyMealPlanning.Nutrient import NutrientInfo
 from functools import total_ordering
+from typing import Optional
+
+from PyMealPlanning.Nutrient import NutrientInfo
+from PyMealPlanning.UnitMetrics import UnitMetric, Volume
 
 # ================================================================================
 # INGREDIENTS

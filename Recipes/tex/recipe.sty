@@ -24,6 +24,9 @@
 \usepackage{xinttools}
 \usepackage{xint}
 
+\usepackage{url}
+\usepackage{hyperref}
+
 \ExplSyntaxOn
 \NewDocumentCommand{\newList}{m}{
     \seq_new:c { l_kees_list_#1_seq }
@@ -51,14 +54,26 @@
 % ################################################################################
 % TITLE + Picture
 % ################################################################################
+% PHOTO
 \newcommand\setphoto{\newcommand\zzphoto{example-image}}
 \setphoto
 \newcommand\photo[1]{\renewcommand{\zzphoto}{Graphics/#1}}
 
+% SOURCE
+\newcommand\setsource{\newcommand\zzsource{}}
+\setsource
+\newcommand\source[1]{\renewcommand{\zzsource}{#1}}
+
+% SCORE
+\newcommand\setscore{\newcommand\zzscore{5}}
+\setscore
+\newcommand\score[1]{\renewcommand{\zzscore}{#1}}
+
+% MAKETITLE
 \renewcommand{\maketitle}{
     \colorbox{titlebg}{%
         \parbox{\dimexpr\textwidth-3\fboxsep}{\centering \color{titlecolor}
-        \fontsize{24.88}{28}\bfseries\thetitle
+        \fontsize{24.88}{28}\bfseries\thetitle \hspace{1cm}{\normalsize (\zzscore/10, \href{\zzsource}{Source})}
         }%
     }%
     \\[0.5cm]

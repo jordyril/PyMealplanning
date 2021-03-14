@@ -1,5 +1,4 @@
-from pylatex import Command
-from typing import Union, Optional
+from typing import Optional, Union
 
 from PyMealPlanning.Ingredient import Ingredient
 from PyMealPlanning.Nutrient import NutrientInfo
@@ -24,6 +23,7 @@ class Recipe(object):
         tag: Union[str, list] = ["Breakfast", "Lunch", "Dinner"],
         score: float = 5,
         instructions: Union[str, list] = "Mix everything and Enjoy!",
+        source: Optional[str] = None,
     ) -> None:
 
         self.name = name
@@ -39,6 +39,7 @@ class Recipe(object):
             instructions if isinstance(instructions, list) else [instructions]
         )
         self.score = score
+        self.source = source
 
         # methods
         self._sort_ingredients()
@@ -54,44 +55,4 @@ class Recipe(object):
 
     def to_latex(self, photo=None, folder=".") -> None:
         wrapper = PyLaTeXRecipeUtil(self, folder)
-
         wrapper.recipe_to_latex(photo=photo)
-        # wrapper._space()
-
-        # wrapper.doc.preamble.append(Command("usepackage", "recipe"))
-        # wrapper._add_tex_title("Data")
-
-        # wrapper._space()
-        # wrapper.doc.append(Command("title", self.name))
-        # wrapper.doc.append(Command("serving", self.serving))
-
-        # wrapper._space()
-
-        # for var in ["calories", "protein", "fat", "carbs"]:
-        #     wrapper.doc.append(
-        #         Command(var, getattr(self.nutrient_info, var).metric.quantity)
-        #     )
-
-        # wrapper._space()
-
-        # if photo:
-        #     wrapper.doc.append(Command("photo", photo))
-
-        # wrapper._space()
-
-        # for ing in self.ingredients:
-        #     wrapper.doc.append(
-        #         Command("ingredient", [ing.name, ing.metric.quantity, ing.metric.unit])
-        #     )
-
-        # wrapper._space()
-
-        # for step in self.instructions:
-        #     wrapper.doc.append(Command("step", step))
-
-        # wrapper._add_tex_title("Doc")
-        # wrapper.doc.append(Command("createrecipe"))
-
-        # wrapper.doc.generate_pdf(clean_tex=False, clean=True)
-
-        # wrapper._move_pdf()
