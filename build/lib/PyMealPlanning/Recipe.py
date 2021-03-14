@@ -2,7 +2,7 @@ from typing import Optional, Union
 
 from PyMealPlanning.Ingredient import Ingredient
 from PyMealPlanning.Nutrient import NutrientInfo
-from PyMealPlanning.UnitMetrics import Serving
+from PyMealPlanning.UnitMetrics import Serving, Mass
 from PyMealPlanning.utils import PyLaTeXRecipeUtil
 
 # ================================================================================
@@ -56,3 +56,15 @@ class Recipe(object):
     def to_latex(self, photo=None, folder=".") -> None:
         wrapper = PyLaTeXRecipeUtil(self, folder)
         wrapper.recipe_to_latex(photo=photo)
+
+    @property
+    def _savename(self) -> str:
+        return "".join(self.name.title().split(" "))
+
+    def __repr__(self) -> str:
+        return self.name
+
+
+class EmptyMeal(Recipe):
+    def __init__(self, name: str = "Empty") -> None:
+        super().__init__(name, None, Ingredient("", Mass(0)))

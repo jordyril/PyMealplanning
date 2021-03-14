@@ -29,10 +29,18 @@
 % ################################################################################
 % MAIN TITLE
 \title{Meal plan}
-\newcommand{\firstdate}{14/03}
-\newcommand{\lastdate}{19/03}
 
-\newcommand{\thedate}{\firstdate\ $-$ \lastdate}
+% FIRSTDATE
+\newcommand\setfirstdate{\newcommand\zzfirstdate5}
+\setfirstdate
+\newcommand\firstdate[1]{\renewcommand{\zzfirstdate}{#1}}
+
+% LASTDATE
+\newcommand\setlastdate{\newcommand\zzlastdate5}
+\setlastdate
+\newcommand\lastdate[1]{\renewcommand{\zzlastdate}{#1}}
+
+\newcommand{\thedate}{\zzfirstdate\ $-$ \zzlastdate}
 
 \newcommand{\mytitle}[1]{
     \colorbox{titlebg}{%

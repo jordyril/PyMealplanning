@@ -1,7 +1,10 @@
 setup.py
+PyMealPlanning/Day.py
 PyMealPlanning/Ingredient.py
+PyMealPlanning/Mealplanner.py
 PyMealPlanning/Nutrient.py
 PyMealPlanning/Recipe.py
+PyMealPlanning/RecipeDictionary.py
 PyMealPlanning/UnitMetrics.py
 PyMealPlanning/__init__.py
 PyMealPlanning/utils.py

@@ -4,6 +4,7 @@
         "bdist",
         "isreleased",
         "lmodern",
+        "rmul",
         "sdist"
     ]
 }

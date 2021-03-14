@@ -35,7 +35,45 @@ class Ingredient(object):
     def __eq__(self, right):
         return self.name == right.name
 
+    def __mul__(self, other: float):
+        return self.__class__(
+            name=self.name,
+            metric=other * self.metric,
+            category=self.category,
+            nutrient_info=other * self.nutrient_info if self.nutrient_info else None,
+            variant=self.variant,
+        )
+
+    __rmul__ = __mul__
+
+    def __add__(self, other):
+        self._check_equal_type(other)
+        return self.__class__(
+            name=self.name,
+            metric=other.metric + self.metric,
+            category=self.category,
+            nutrient_info=None,
+            variant=self.variant,
+        )
+
+    def _check_equal_type(self, other) -> None:
+        if not isinstance(other, self.__class__):
+            raise SyntaxError(
+                f"Cannot perform this action on type {self.__class__} and {other.__class__}"
+            )
+        if not self.__eq__(other):
+            raise ValueError(
+                f"Cannot perform this action on different ingredients, {self.name} and {other.name}"
+            )
+
 
 class Milk(Ingredient):
-    def __init__(self, quantity: float, unit: str = "ml") -> None:
-        super().__init__("Milk", Volume(quantity, unit), "Liquids")
+    def __init__(
+        self,
+        metric: Volume = Volume(1),
+        name="Milk",
+        category="Liquids",
+        *args,
+        **kwargs,
+    ) -> None:
+        super().__init__(name=name, metric=metric, category=category, *args, **kwargs)
