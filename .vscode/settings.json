@@ -1,3 +1,9 @@
 {
-    "activestate.promptRuntimeCreation": false
+    "activestate.promptRuntimeCreation": false,
+    "cSpell.ignoreWords": [
+        "bdist",
+        "isreleased",
+        "lmodern",
+        "sdist"
+    ]
 }

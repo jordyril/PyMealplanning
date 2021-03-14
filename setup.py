@@ -34,7 +34,7 @@ Created on Sun Mar 14 15:30:00 2021
 
 """
 
-from setuptools import setup, find_packages
+from setuptools import setup
 
 # package naming
 DISTNAME = "PyMealPlanning"
