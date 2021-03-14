@@ -1,6 +1,7 @@
-from pylatex import Document, Command
-from pylatex.utils import NoEscape
 import shutil
+
+from pylatex import Command, Document
+from pylatex.utils import NoEscape
 
 
 class PyLaTeXRecipeUtil(object):
