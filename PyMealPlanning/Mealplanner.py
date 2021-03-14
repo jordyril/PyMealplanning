@@ -3,9 +3,37 @@ from datetime import date
 from typing import Tuple, Union
 
 import pandas as pd
+import numpy as np
 
 from PyMealPlanning.Day import Day
 from PyMealPlanning.utils import PyLaTeXMealPlanUtil
+
+
+class GroceryList(object):
+    def __init__(self, list,) -> None:
+        self._list = list
+
+    # set(cum_list)
+
+    # # Alphabetical order
+    # cum_list
+
+    # # Category order
+    # newlist = sorted(cum_list, key=lambda x: x.category, reverse=False)
+    # t = np.array(newlist)
+    # t[[x.category == "Varia" for x in t]]
+
+    def to_txt(self, filename, folder="."):
+        longest_article = max([len(x.name) for x in self._list])
+        f = open(f"{folder}/{filename}.txt", "w+")
+
+        for article in self._list:
+            f.write(f"{article.name.ljust(longest_article + 10)}{article.metric}\n")
+
+        f.close()
+
+    def __repr__(self):
+        return self._list.__repr__()
 
 
 class MealPlanner(object):
@@ -40,3 +68,23 @@ class MealPlanner(object):
         wrapper = PyLaTeXMealPlanUtil(self, folder)
 
         wrapper.mealplan_to_latex()
+
+    def create_grocery_list(self) -> GroceryList:
+        list_of_ingredients = []
+        for day in self.days:
+            for meal in day.meals:
+                list_of_ingredients += meal.ingredients
+
+        list_of_ingredients = [x for x in list_of_ingredients if x is not None]
+        list_of_ingredients = sorted(list_of_ingredients)
+
+        # aggregate over ingredients
+        cum_list = []
+        for x in list_of_ingredients:
+            if x not in cum_list:
+                temp = [t for t in list_of_ingredients if t == x]
+                s = np.array(temp).sum()
+                cum_list.append(s)
+
+        self.grocery_list = GroceryList(cum_list)
+        return self.grocery_list
