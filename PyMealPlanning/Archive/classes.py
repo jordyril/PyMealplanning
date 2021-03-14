@@ -1,12 +1,13 @@
 import pandas as pd
 from typing import Union, Optional
+from functools import total_ordering
 
 # import os
 import shutil
 
 from pylatex import Document, Command
 from pylatex.utils import NoEscape
-from functools import total_ordering
+
 
 # ================================================================================
 # UNIT

@@ -1,11 +1,11 @@
 import os
 from MyUtils.dataprocessing import save_to_pickle, open_from_pickle
+from PyMealPlanning import Recipe
 
+PATH = r"C:\Users\jordy\OneDrive\Varia\Health\Food\PyMealplanning"
+recipe_folder = r"Recipes"
 
-PATH = r"C:\Users\jordy\OneDrive\Varia\Health\Food\Mealplan"
-folder = r"..\Recipes"
-
-os.chdir(f"{PATH}/{folder}")
+os.chdir(f"{PATH}")
 
 # ================================================================================
 # INITIAL START (basically only needed once at start)
