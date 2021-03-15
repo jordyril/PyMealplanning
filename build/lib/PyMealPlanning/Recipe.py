@@ -53,8 +53,12 @@ class Recipe(object):
     def __lt__(self, other) -> bool:
         pass
 
-    def to_latex(self, photo=None, folder=".") -> None:
+    def to_latex(self, photo: Union[str, bool] = None, folder=".") -> None:
         wrapper = PyLaTeXRecipeUtil(self, folder)
+
+        if photo is True:
+            photo = self.name.title().replace(" ", "")
+
         wrapper.recipe_to_latex(photo=photo)
 
     @property

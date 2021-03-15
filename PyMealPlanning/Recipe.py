@@ -57,7 +57,7 @@ class Recipe(object):
         wrapper = PyLaTeXRecipeUtil(self, folder)
 
         if photo is True:
-            photo = self.name
+            photo = self.name.title().replace(" ", "")
 
         wrapper.recipe_to_latex(photo=photo)
 
