@@ -1,5 +1,5 @@
 from functools import total_ordering
-from typing import Optional
+from typing import Optional, Union
 
 from PyMealPlanning.Nutrient import NutrientInfo
 from PyMealPlanning.UnitMetrics import UnitMetric, Volume
@@ -70,10 +70,11 @@ class Ingredient(object):
 class Milk(Ingredient):
     def __init__(
         self,
-        metric: Volume = Volume(1),
+        metric: Union[Volume, float] = Volume(1),
         name="Milk",
         category="Liquids",
         *args,
         **kwargs,
     ) -> None:
+        metric = metric if isinstance(metric, Volume) else Volume(metric)
         super().__init__(name=name, metric=metric, category=category, *args, **kwargs)

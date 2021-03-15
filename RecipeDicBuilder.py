@@ -18,13 +18,15 @@ recipe_dictionary = RecipeDictionary(filename="RecipeDictionary", folder=recipe_
 # ================================================================================
 # ADD RECIPES
 # ================================================================================
+# -------
+# RECIPE
+# -------
 recipe = Recipe(
-    name="Taboule couscous salat Alnatura",
-    ingredients=Ingredient("Alnatura taboule couscous-salat", Mass(100)),
-    nutrient_info=NutrientInfo(calories=115, fat=0.7, carbs=21, protein=4.3),
-    tag=["Quick", "Lunch", "Dinner", "NoCooking"],
-    score=7.5,
-    instructions="Package instructions",
+    name="Nesquik cereals",
+    ingredients=[Ingredient("Nesquik cereals", Mass(30)), Milk(150)],
+    nutrient_info=NutrientInfo(calories=180, fat=3, carbs=30, protein=7),
+    tag=["Quick", "Lunch", "Breakfast", "NoCooking"],
+    score=7,
 )
 
 recipe.to_latex(folder=recipe_folder, photo=True)
@@ -33,14 +35,33 @@ recipe_dictionary.add_recipe(recipe)
 # ================================================================================
 # ADDED RECIPES
 # ================================================================================
-# test = Recipe(
-#     name="test cereals2",
-#     ingredients=[Milk(200), Ingredient("Nesquik cereal", Mass(30, "g"))],
-#     nutrient_info=NutrientInfo(203, 33, 9, 4),
+# # -------
+# # RECIPE
+# # -------
+# recipe = Recipe(
+#     name="Taboule couscous salat Alnatura",
+#     ingredients=Ingredient("Alnatura taboule couscous-salat", Mass(100)),
+#     nutrient_info=NutrientInfo(calories=115, fat=0.7, carbs=21, protein=4.3),
+#     tag=["Quick", "Lunch", "Dinner", "NoCooking"],
+#     score=7.5,
+#     instructions="Package instructions",
 # )
 
-# # test.to_latex(folder=recipe_folder, photo="NesquikCereal")
+# recipe.to_latex(folder=recipe_folder, photo=True)
 
+# recipe_dictionary.add_recipe(recipe)
 
-# recipe_dic.add_recipe(test)
-# recipe_dic.delete_recipe(test)
+# # -------
+# # RECIPE
+# # -------
+# recipe = Recipe(
+#     name="Nesquik cereals",
+#     ingredients=[Ingredient("Nesquik cereals", Mass(30)), Milk(150)],
+#     nutrient_info=NutrientInfo(calories=180, fat=3, carbs=30, protein=7),
+#     tag=["Quick", "Lunch", "Breakfast", "NoCooking"],
+#     score=7,
+# )
+
+# recipe.to_latex(folder=recipe_folder, photo=True)
+
+# recipe_dictionary.add_recipe(recipe)
