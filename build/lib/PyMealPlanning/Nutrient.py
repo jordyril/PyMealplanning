@@ -43,22 +43,26 @@ class Nutrient(object):
 
 
 class Calories(Nutrient):
-    def __init__(self, metric: Energy = Energy(1)) -> None:
+    def __init__(self, metric: Union[Energy, float] = Energy(1)) -> None:
+        metric = metric if isinstance(metric, Energy) else Energy(metric)
         super().__init__(metric, "Calories")
 
 
 class Proteins(Nutrient):
-    def __init__(self, metric: Mass = Mass(1)) -> None:
+    def __init__(self, metric: Union[Mass, float] = Mass(1)) -> None:
+        metric = metric if isinstance(metric, Mass) else Mass(metric)
         super().__init__(metric, "Proteins")
 
 
 class Carbs(Nutrient):
-    def __init__(self, metric: Mass = Mass(1)) -> None:
+    def __init__(self, metric: Union[Mass, float] = Mass(1)) -> None:
+        metric = metric if isinstance(metric, Mass) else Mass(metric)
         super().__init__(metric, "Carbs")
 
 
 class Fat(Nutrient):
-    def __init__(self, metric: Mass = Mass(1)) -> None:
+    def __init__(self, metric: Union[Mass, float] = Mass(1)) -> None:
+        metric = metric if isinstance(metric, Mass) else Mass(metric)
         super().__init__(metric, "Fat")
 
 
