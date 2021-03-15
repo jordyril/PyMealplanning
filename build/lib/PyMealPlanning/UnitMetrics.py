@@ -23,6 +23,9 @@ class UnitMetric(object):
         self._prefix = self.unit.split(self._base)[0]
         self._base_quantity = 10 ** self._decimal_unit_dic[self._prefix] * self.quantity
 
+    def __repr__(self) -> str:
+        return f"{self.quantity}{self.unit}"
+
     def __eq__(self, other) -> bool:
         if not isinstance(other, self.__class__):
             return False
@@ -31,9 +34,6 @@ class UnitMetric(object):
     def __lt__(self, other) -> bool:
         self._check_equal_type(other)
         return self._base_quantity > other._base_quantity
-
-    def __repr__(self) -> str:
-        return f"{self.quantity}{self.unit}"
 
     def __mul__(self, other: float):
         return self.__class__(other * self.quantity, self.unit)
@@ -76,6 +76,10 @@ class Serving(UnitMetric):
     def __init__(self, quantity: float = 1, unit: str = "Person(s)") -> None:
         super().__init__(quantity, unit)
         self._base = "Person(s)"
+
+    # TODO - This is not working for some reason
+    def __repr__(self) -> str:
+        return f"{self.quantity} {self.unit}"
 
     def __mul__(self, other: float):
         return self.__class__(other * self.quantity, self.unit)

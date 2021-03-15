@@ -19,7 +19,7 @@ class Recipe(object):
         nutrient_info: NutrientInfo,
         prep_time: Optional[float] = 1,
         prep_time_unit: Optional[str] = "min",
-        serving: Union[float, Serving] = 1,
+        serving: Union[float, Serving] = Serving(1),
         tag: Union[str, list] = ["Breakfast", "Lunch", "Dinner"],
         score: float = 5,
         instructions: Union[str, list] = "Mix everything and Enjoy!",

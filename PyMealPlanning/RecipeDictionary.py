@@ -29,8 +29,9 @@ class RecipeDictionary(object):
     def _save_dic(self) -> None:
         save_to_pickle(self.filename, self.recipe_dic, folder=self.folder)
 
-    def add_recipe(self, recipe) -> None:
-        self._check_dic_key(recipe.name)
+    def add_recipe(self, recipe, replace=False) -> None:
+        if not replace:
+            self._check_dic_key(recipe.name)
 
         self.recipe_dic[recipe.name] = recipe
 

@@ -2,8 +2,8 @@ import os
 from PyMealPlanning.RecipeDictionary import RecipeDictionary
 from PyMealPlanning.Recipe import Recipe
 from PyMealPlanning.Ingredient import Ingredient, Milk
-from PyMealPlanning.Nutrient import NutrientInfo
-from PyMealPlanning.UnitMetrics import Mass
+from PyMealPlanning.Nutrient import NutrientInfo, Calories, Carbs, Fat, Proteins
+from PyMealPlanning.UnitMetrics import Mass, Serving
 
 PATH = r"C:\Users\jordy\OneDrive\Varia\Health\Food\PyMealplanning"
 recipe_folder = r"Recipes"
@@ -18,7 +18,18 @@ recipe_dictionary = RecipeDictionary(filename="RecipeDictionary", folder=recipe_
 # ================================================================================
 # ADD RECIPES
 # ================================================================================
-recipe = Recipe()
+recipe = Recipe(
+    name="Taboule couscous salat Alnatura",
+    ingredients=Ingredient("Alnatura taboule couscous-salat", Mass(100)),
+    nutrient_info=NutrientInfo(calories=115, fat=0.7, carbs=21, protein=4.3),
+    tag=["Quick", "Lunch", "Dinner", "NoCooking"],
+    score=7.5,
+    instructions="Package instructions",
+)
+
+recipe.to_latex(folder=recipe_folder, photo=True)
+
+recipe_dictionary.add_recipe(recipe)
 # ================================================================================
 # ADDED RECIPES
 # ================================================================================
