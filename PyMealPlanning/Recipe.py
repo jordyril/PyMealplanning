@@ -56,7 +56,7 @@ class Recipe(object):
     def to_latex(self, photo: Union[str, bool] = None, folder=".") -> None:
         wrapper = PyLaTeXRecipeUtil(self, folder)
 
-        if photo == True:
+        if photo is True:
             photo = self.name
 
         wrapper.recipe_to_latex(photo=photo)
