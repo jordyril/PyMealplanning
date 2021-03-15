@@ -9,11 +9,13 @@
 
 \usepackage{color}
 \definecolor{titlecolor}{RGB}{252, 252, 252}
-\definecolor{titlebg}{RGB}{120, 250, 120}
+\definecolor{titlebg}{RGB}{255, 150, 255}
 
 \usepackage{graphicx}
 
 \usepackage{multicol}
+\usepackage{vwcol}
+\usepackage{paracol}
 \usepackage{tabularx}
 \newcolumntype{C}{>{\centering\arraybackslash}X}
 \newcolumntype{R}{>{\raggedleft\arraybackslash}X}
@@ -42,14 +44,7 @@
 \ExplSyntaxOff
 
 \usepackage{tcolorbox}
-\newtcolorbox{mybox}[3][]
-{
-  colframe = #2!25,
-  colback  = white,
-  coltitle = #2!20!black,  
-  title    = {#3},
-  #1,
-}
+\tcbuselibrary{raster}
 
 % ################################################################################
 % TITLE + Picture
@@ -106,7 +101,7 @@
 \newcommand\fat[1]{\renewcommand{\zzfat}{#1}}
 
 
-\newcommand\nutricientstabular{
+\newcommand\nutrienttabular{
     {\Large
     \begin{tabularx}{\linewidth}{lRl}
         Calories & \zzcalories & kcal \\[0.3em]
@@ -115,12 +110,6 @@
         Fat & \zzfat & g
     \end{tabularx}
     }
-}
-
-\newcommand{\boxnutrition}{
-    \begin{mybox}{yellow}{\textbf{\Large Nutrient values}}
-        \nutricientstabular
-    \end{mybox}
 }
 
 % ################################################################################
@@ -151,11 +140,6 @@
     }
 }
 
-\newcommand{\boxingredients}{
-    \begin{mybox}{red}{\textbf{\Large Ingredients: \zzserving}}
-        \ingredientstabular
-    \end{mybox}
-}
 
 % ################################################################################
 % INSTRUCTIONS
@@ -169,14 +153,13 @@
     \addtocounter{instructionscounter}{1}
 }
 
-\newcommand{\boxinstructions}{
-    \begin{mybox}{orange}{\textbf{\Large Instructions}}
+\newcommand{\instructionstabular}{
         {\Large
         \begin{enumerate}
             \xintFor* ##1 in {\xintSeq{1}{\theinstructionscounter}}\do{\item \getFromList{instructions}{##1}}
         \end{enumerate}
         }
-    \end{mybox}
+
 }
 
 
@@ -185,14 +168,21 @@
 % ################################################################################
 % COMBINE
 % ################################################################################
+
 \newcommand{\printinfo}{
-    \begin{multicols}{2}
-        \boxingredients
-        \columnbreak
-        \boxnutrition
-    \end{multicols}
-    \boxinstructions
+    \begin{tcbitemize}[raster equal height=rows,raster columns=3,  fonttitle=\Large\bfseries]
+        \tcbitem[adjusted title=Nutrient values, raster multicolumn=1,colframe=blue!75!black,colback=blue!15!white]
+        \nutrienttabular
+    
+        \tcbitem[adjusted title=Ingredients: \zzserving, raster multicolumn=2,colframe=green!75!black,colback=green!15!white]
+        \ingredientstabular
+    
+        \tcbitem[adjusted title=Instructions, raster multicolumn=3,colframe=red!75!black,colback=red!15!white]
+        \instructionstabular
+    \end{tcbitemize}
 }
+
+
 
 
 \newcommand{\createrecipe}{
